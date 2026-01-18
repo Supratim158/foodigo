@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery_app/common/app_style.dart';
+import 'package:food_delivery_app/common/bg_controller.dart';
+import 'package:food_delivery_app/common/reusable_text.dart';
+import 'package:food_delivery_app/constants/constants.dart';
+import 'package:food_delivery_app/constants/uidata.dart';
+import 'package:food_delivery_app/views/home/widgets/restaurant_tile.dart';
+
+class AllNearbyRestaurants extends StatelessWidget {
+  const AllNearbyRestaurants({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kTertiary,
+      appBar: AppBar(
+        elevation: 0,
+        title: ReusableText(
+          text: "Nearby Restaurants", 
+          style: appStyle(15, kLightWhite, FontWeight.w600)
+        ),
+        backgroundColor: kTertiary,
+        centerTitle: true,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: const Icon(Icons.arrow_back_ios, color: Colors.white,)),
+      ),
+      body: BgController(
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: List.generate(restaurants.length, (i){
+              var restaurant = restaurants[i];
+              return Padding(
+                padding: EdgeInsets.only(top:6.h, left: 12.w, right: 12.w),
+                child: RestuarantTile(restaurant: restaurant)
+              );
+            }),
+          ),
+          color: Colors.white
+      ),
+    );
+  }
+}
